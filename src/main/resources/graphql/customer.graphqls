@@ -6,7 +6,22 @@ type Customer {
     age: Int!
 }
 
+input NewCustomer {
+    firstname: String!
+    lastname: String!
+    age: Int!
+}
+
+input DeleteCustomer {
+    id: ID!
+}
+
 type Query {
     getAllCustomers: [Customer]
     getCustomerById(id: ID!): Customer
+}
+
+type Mutation {
+    newCustomer(input: NewCustomer):Customer
+    deleteCustomer(input: DeleteCustomer):Customer
 }

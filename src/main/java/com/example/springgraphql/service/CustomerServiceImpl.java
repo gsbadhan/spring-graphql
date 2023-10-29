@@ -5,6 +5,7 @@ import com.example.springgraphql.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,5 +19,15 @@ public class CustomerServiceImpl implements CustomerService {
         if (customer.isEmpty())
             return null;
         return customer.get();
+    }
+
+    @Override
+    public List<Customer> getCustomers() throws Exception {
+        return customerRepository.findAll();
+    }
+
+    @Override
+    public Customer updateCustomer(Customer customer) throws Exception {
+        return customerRepository.save(customer);
     }
 }

@@ -1,3 +1,4 @@
+# get customer by id
 query customer {
   getCustomerById(id: 1) {
     id
@@ -6,3 +7,16 @@ query customer {
     age
   }
 }
+
+# get all customers
+query customer {
+ getAllCustomers {
+   id,
+  firstname,
+  lastname,
+  age
+ }
+}
+
+
+#
