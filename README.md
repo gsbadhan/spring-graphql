@@ -2,4 +2,4 @@
 
 
 ## GraphQL UI
-http://localhost:8080/graphiql
+http://localhost:9090/graphiql

@@ -1,0 +1,8 @@
+query customer {
+  getCustomerById(id: 1) {
+    id
+    firstname
+    lastname
+    age
+  }
+}

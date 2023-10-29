@@ -9,3 +9,6 @@ create table `customer`(
 `age` integer not null,
 primary key (`id`)
 );
+
+insert into customer(id,firstname,lastname,age) values(1,'john','trizona',24);
+insert into customer(id,firstname,lastname,age) values(2,'smith','stark',30);
