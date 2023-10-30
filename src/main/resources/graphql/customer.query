@@ -1,5 +1,16 @@
+# add new customer
+mutation {
+  newCustomer(record: {firstname: "johan", lastname: "hok", age: 30}) {
+    id
+    firstname
+    lastname
+    age
+  }
+}
+
+
 # get customer by id
-query customer {
+query {
   getCustomerById(id: 1) {
     id
     firstname
@@ -9,7 +20,7 @@ query customer {
 }
 
 # get all customers
-query customer {
+query {
  getAllCustomers {
    id,
   firstname,
@@ -19,4 +30,22 @@ query customer {
 }
 
 
-#
+# delete customer
+mutation {
+ deleteCustomer(id: 1) {
+   id,
+  firstname,
+  lastname,
+  age
+ }
+}
+
+# update customer
+mutation {
+  updateCustomer(id:4, record: {firstname: "david", lastname: "josan", age: 40}) {
+    id
+    firstname
+    lastname
+    age
+  }
+}

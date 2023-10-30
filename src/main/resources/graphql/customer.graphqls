@@ -12,16 +12,13 @@ input NewCustomer {
     age: Int!
 }
 
-input DeleteCustomer {
-    id: ID!
-}
-
 type Query {
     getAllCustomers: [Customer]
     getCustomerById(id: ID!): Customer
 }
 
 type Mutation {
-    newCustomer(input: NewCustomer):Customer
-    deleteCustomer(input: DeleteCustomer):Customer
+    newCustomer(record: NewCustomer):Customer
+    deleteCustomer(id: ID!):Customer
+    updateCustomer(id: ID!, record: NewCustomer):Customer
 }

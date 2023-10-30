@@ -1,6 +1,7 @@
 package com.example.springgraphql.service;
 
 import com.example.springgraphql.entity.Customer;
+import com.example.springgraphql.pojo.NewCustomer;
 import com.example.springgraphql.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +28,26 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Customer updateCustomer(Customer customer) throws Exception {
+    public Customer updateCustomer(Long id, NewCustomer newCustomer) throws Exception {
+        Customer customer = customerRepository.findById(id).get();
+        customer.setFirstname(newCustomer.getFirstname());
+        customer.setLastname(newCustomer.getLastname());
+        customer.setAge(newCustomer.getAge());
         return customerRepository.save(customer);
+    }
+
+    @Override
+    public Customer deleteCustomer(Long id) throws Exception {
+        Customer customer = customerRepository.findById(id).get();
+        customerRepository.deleteById(id);
+        return customer;
+    }
+
+    @Override
+    public Customer newCustomer(NewCustomer newCustomer) throws Exception {
+        Customer customer = customerRepository.save(new Customer(null, newCustomer.getFirstname(),
+                newCustomer.getLastname(),
+                newCustomer.getAge()));
+        return customer;
     }
 }
