@@ -1,6 +1,7 @@
 package com.example.springgraphql.controller;
 
 import com.example.springgraphql.entity.Customer;
+import com.example.springgraphql.pojo.NewCustomer;
 import com.example.springgraphql.repository.CustomerRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -94,9 +95,45 @@ class CustomerControllerTestIT {
 
     @Test
     void updateCustomer() {
+        Customer testCustomer1 = customerRepository.save(new Customer(null, "johan", "tan", 23));
+        NewCustomer updateTestCustomer1 = new NewCustomer(testCustomer1.getFirstname(), "sam", 24);
+        String query = "mutation {\n" +
+                "  updateCustomer(id:" + testCustomer1.getId() + ", record: {firstname: \"" + testCustomer1.getFirstname() + "\", " +
+                "lastname: " +
+                "\"" + updateTestCustomer1.getLastname() + "\", age: " +
+                "" + updateTestCustomer1.getAge() + "}) {\n" +
+                "    id\n" +
+                "    firstname\n" +
+                "    lastname\n" +
+                "    age\n" +
+                "  }\n" +
+                "}";
+        Customer customer =
+                graphQlTester.document(query).execute().path("data.updateCustomer").entity(Customer.class).get();
+        assertNotNull(customer);
+        assertEquals(testCustomer1.getId(), customer.getId());
+        assertEquals(testCustomer1.getFirstname(), customer.getFirstname());
+        assertEquals(updateTestCustomer1.getLastname(), customer.getLastname());
+        assertEquals(updateTestCustomer1.getAge(), customer.getAge());
     }
 
     @Test
     void deleteCustomer() {
+        Customer testCustomer1 = customerRepository.save(new Customer(null, "johan", "tan", 23));
+        String query = "mutation {\n" +
+                " deleteCustomer(id: " + testCustomer1.getId() + ") {\n" +
+                "   id,\n" +
+                "  firstname,\n" +
+                "  lastname,\n" +
+                "  age\n" +
+                " }\n" +
+                "}";
+        Customer customer =
+                graphQlTester.document(query).execute().path("data.deleteCustomer").entity(Customer.class).get();
+        assertNotNull(customer);
+        assertNotNull(customer.getId());
+        assertEquals(testCustomer1.getFirstname(), customer.getFirstname());
+        assertEquals(testCustomer1.getLastname(), customer.getLastname());
+        assertEquals(testCustomer1.getAge(), customer.getAge());
     }
 }
